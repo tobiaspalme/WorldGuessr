@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">WorldGuessr</string>
+    <string name="picture_menu">Picture</string>
+    <string name="map_menu">Map</string>
+    <string name="app_title">WorldGuessr</string>
+    <string name="start_button">Start</string>
+    <string name="history_button">History</string>
 </resources>
