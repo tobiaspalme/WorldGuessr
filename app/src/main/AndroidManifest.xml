@@ -17,9 +17,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <activity android:name=".StartScreenActivity" />
+
+        <activity android:name=".GameScreenActivity" />
     </application>
 
 </manifest>
