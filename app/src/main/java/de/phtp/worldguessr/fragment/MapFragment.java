@@ -91,6 +91,10 @@ public class MapFragment extends Fragment {
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
+                if(map.getOverlays().size() > 1) {
+                    map.getOverlays().remove(1);
+                }
+
                 GeoPoint geoPoint = new GeoPoint(p.getLatitude(),p.getLongitude());
                 Marker startMarker = new Marker(map);
                 startMarker.setPosition(geoPoint);
