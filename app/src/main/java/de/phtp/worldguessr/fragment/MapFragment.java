@@ -25,6 +25,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 
+import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.activity.MainActivity;
 import de.phtp.worldguessr.activity.StartScreenActivity;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
@@ -57,11 +58,12 @@ public class MapFragment extends Fragment {
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         IMapController mapController = map.getController();
-        mapController.setZoom(9.5);
+        mapController.setZoom(4);
         GeoPoint startPoint = new GeoPoint(48.8583, 2.2944);
         mapController.setCenter(startPoint);
 
-
+        map.setHorizontalMapRepetitionEnabled(false);
+        map.setVerticalMapRepetitionEnabled(false);
 
         //remove - and + buttons
         map.setBuiltInZoomControls(false);
@@ -91,6 +93,7 @@ public class MapFragment extends Fragment {
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
+                //remove oldest GeoPoint
                 if(map.getOverlays().size() > 1) {
                     map.getOverlays().remove(1);
                 }
@@ -100,7 +103,11 @@ public class MapFragment extends Fragment {
                 startMarker.setPosition(geoPoint);
                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 map.getOverlays().add(startMarker);
+
+                //refresh map
                 map.invalidate();
+                //
+                homeButton.setImageResource(R.drawable.ic_check);
 
                 return false;
             }
