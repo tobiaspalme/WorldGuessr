@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -106,8 +107,14 @@ public class MapFragment extends Fragment {
 
                 //refresh map
                 map.invalidate();
-                //
+                //change icon to checkmark
                 homeButton.setImageResource(R.drawable.ic_check);
+
+
+                //Snackbar for testing purpose
+                Snackbar snackbar = Snackbar
+                        .make(binding.fragmentMapFab, "test123", Snackbar.LENGTH_INDEFINITE);
+                snackbar.show();
 
                 return false;
             }
