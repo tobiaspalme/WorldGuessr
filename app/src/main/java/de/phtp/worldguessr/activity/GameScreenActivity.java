@@ -1,4 +1,4 @@
-package de.phtp.worldguessr;
+package de.phtp.worldguessr.activity;
 
 import android.os.Bundle;
 
@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 
+import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.databinding.ActivityGameScreenBinding;
 
 
