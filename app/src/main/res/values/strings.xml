@@ -8,4 +8,5 @@
     <string name="history_button">History</string>
     <string name="navigation_picture">Picture</string>
     <string name="navigation_map">Map</string>
+    <string name="go_to_home">Home</string>
 </resources>

@@ -1,6 +1,7 @@
 package de.phtp.worldguessr.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
@@ -22,6 +25,8 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 
+import de.phtp.worldguessr.activity.MainActivity;
+import de.phtp.worldguessr.activity.StartScreenActivity;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
 
 public class MapFragment extends Fragment {
@@ -30,6 +35,8 @@ public class MapFragment extends Fragment {
     private View root;
 
     private MapView map = null;
+
+    private FloatingActionButton homeButton;
 
 
     @Nullable
@@ -45,6 +52,7 @@ public class MapFragment extends Fragment {
 
 
         map = binding.map;
+        homeButton = binding.fragmentMapFab;
 
         map.setTileSource(TileSourceFactory.MAPNIK);
 
@@ -62,9 +70,20 @@ public class MapFragment extends Fragment {
 
 
         updateTouchPosition();
+        registerHomeButton();
 
 
         return root;
+    }
+
+    private void registerHomeButton() {
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getActivity(), StartScreenActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
     private void updateTouchPosition(){
