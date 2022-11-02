@@ -1,4 +1,4 @@
-package de.phtp.worldguessr;
+package de.phtp.worldguessr.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -23,7 +23,6 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
-import de.phtp.worldguessr.databinding.FragmentPictureBinding;
 
 public class MapFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package de.phtp.worldguessr;
+package de.phtp.worldguessr.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
