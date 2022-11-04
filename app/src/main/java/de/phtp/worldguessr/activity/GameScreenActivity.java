@@ -28,8 +28,10 @@ public class GameScreenActivity extends AppCompatActivity {
         binding = ActivityGameScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        setUpBottomNavBar();
+    }
 
+    private void setUpBottomNavBar(){
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_picture, R.id.navigation_map)
                 .build();
