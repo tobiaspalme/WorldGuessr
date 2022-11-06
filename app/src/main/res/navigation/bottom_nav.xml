@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_picture"
-        android:name="de.phtp.worldguessr.fragment.PictureFragment"
+        android:name="de.phtp.worldguessr.view.fragment.PictureFragment"
         android:label="@string/navigation_picture"
         tools:layout="@layout/fragment_picture" />
     <fragment
         android:id="@+id/navigation_map"
-        android:name="de.phtp.worldguessr.fragment.MapFragment"
+        android:name="de.phtp.worldguessr.view.fragment.MapFragment"
         android:label="@string/navigation_map"
         tools:layout="@layout/fragment_map" />
 

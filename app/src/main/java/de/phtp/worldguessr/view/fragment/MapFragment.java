@@ -1,8 +1,7 @@
-package de.phtp.worldguessr.fragment;
+package de.phtp.worldguessr.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -27,8 +26,7 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 
 import de.phtp.worldguessr.R;
-import de.phtp.worldguessr.activity.MainActivity;
-import de.phtp.worldguessr.activity.StartScreenActivity;
+import de.phtp.worldguessr.view.activity.StartScreenActivity;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
 
 public class MapFragment extends Fragment {

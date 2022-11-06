@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.phtp.worldguessr.R;
-import de.phtp.worldguessr.activity.StartScreenActivity;
+import de.phtp.worldguessr.view.activity.StartScreenActivity;
 
 public class StartScreenActivityUITest {
 

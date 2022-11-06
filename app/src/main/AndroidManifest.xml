@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorldGuessr">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,9 +27,9 @@
 
         </activity>
 
-        <activity android:name=".activity.StartScreenActivity" />
+        <activity android:name=".view.activity.StartScreenActivity" />
 
-        <activity android:name=".activity.GameScreenActivity" />
+        <activity android:name=".view.activity.GameScreenActivity" />
     </application>
 
 </manifest>
