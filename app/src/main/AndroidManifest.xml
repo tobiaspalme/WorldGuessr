@@ -30,6 +30,8 @@
         <activity android:name=".view.activity.StartScreenActivity" />
 
         <activity android:name=".view.activity.GameScreenActivity" />
+
+        <activity android:name=".view.activity.HistoryActivity" />
     </application>
 
 </manifest>
