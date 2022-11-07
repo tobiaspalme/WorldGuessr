@@ -26,8 +26,8 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 
 import de.phtp.worldguessr.R;
-import de.phtp.worldguessr.view.activity.StartScreenActivity;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
+import de.phtp.worldguessr.view.activity.MainActivity;
 
 public class MapFragment extends Fragment {
 
@@ -81,7 +81,7 @@ public class MapFragment extends Fragment {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), StartScreenActivity.class);
+                Intent myIntent = new Intent(getActivity(), MainActivity.class);
                 startActivity(myIntent);
             }
         });
