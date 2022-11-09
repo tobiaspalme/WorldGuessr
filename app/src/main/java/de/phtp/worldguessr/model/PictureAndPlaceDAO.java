@@ -10,5 +10,5 @@ public interface PictureAndPlaceDAO {
     void insertPictureAndPlace(PictureAndPlace pictureAndPlace);
 
     @Query("SELECT latitude, longitude FROM PictureAndPlace WHERE :id=id")
-    public Place getPlace(int id);
+    Place getPlace(int id);
 }
