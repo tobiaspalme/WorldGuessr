@@ -3,12 +3,12 @@ package de.phtp.worldguessr.control;
 import org.osmdroid.util.GeoPoint;
 
 public class DistanceCalculator {
-    public static double calculateDistance(GeoPoint pointA, GeoPoint pointB) {
+    public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         final double R = 6371000.0;
-        double latARadiant = pointA.getLatitude() * Math.PI / 180;
-        double latBRadiant = pointB.getLatitude() * Math.PI / 180;
-        double deltaLatRadiant = (pointB.getLatitude() - pointA.getLatitude()) * Math.PI / 180;
-        double deltaLonRadiant = (pointB.getLongitude() - pointA.getLongitude()) * Math.PI / 180;
+        double latARadiant = lat1 * Math.PI / 180;
+        double latBRadiant = lat2 * Math.PI / 180;
+        double deltaLatRadiant = (lat2 - lat1) * Math.PI / 180;
+        double deltaLonRadiant = (lon2 - lon1) * Math.PI / 180;
 
         double a = Math.sin(deltaLatRadiant / 2) * Math.sin(deltaLatRadiant / 2)
                 + Math.cos(latARadiant) * Math.cos(latBRadiant)
