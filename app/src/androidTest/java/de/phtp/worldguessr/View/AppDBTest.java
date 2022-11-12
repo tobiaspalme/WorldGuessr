@@ -60,12 +60,12 @@ public class AppDBTest {
     public void testScores() {
         Scores test = new Scores();
         test.dateTime = "12.11.2022 19:44";
-        test.score = 934000;
+        test.score = 934000.0;
         scoreDAO.insertScore(test);
         List<Score> scores = scoreDAO.getAllScores();
         assertThat(scores.size(), equalTo(1));
         assertThat(scores.get(0).dateTime, equalTo("12.11.2022 19:44"));
-        assertThat(scores.get(0).score, equalTo(934000));
+        assertThat(scores.get(0).score, equalTo(934000.0));
     }
 
 
