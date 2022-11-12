@@ -10,19 +10,4 @@ public class PictureAndPlace {
 
     public double latitude;
     public double longitude;
-
-    public PictureAndPlace(int id, double latitude, double longitude) {
-        this.id = id;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    @Override
-    public String toString() {
-        return "PictureAndPlace{" +
-                "id=" + id +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                '}';
-    }
 }
