@@ -4,11 +4,19 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.List;
+
 @Dao
-public interface PictureAndPlaceDAO {
+public interface DAO {
     @Insert
     void insertPictureAndPlace(PictureAndPlace pictureAndPlace);
 
     @Query("SELECT latitude, longitude FROM PictureAndPlace WHERE :id=id")
     Place getPlace(int id);
+
+    @Insert
+    void insertScore(Scores score);
+
+    @Query("SELECT dateTime, score FROM Scores")
+    List<Score> getAllScores();
 }
