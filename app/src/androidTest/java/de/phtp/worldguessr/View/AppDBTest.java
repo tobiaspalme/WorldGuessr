@@ -59,8 +59,9 @@ public class AppDBTest {
         test.dateTime = "12.11.2022 19:44";
         test.score = 934000.0;
         dao.insertScore(test);
+        dao.insertScore(test);
         List<Score> scores = dao.getAllScores();
-        assertThat(scores.size(), equalTo(1));
+        assertThat(scores.size(), equalTo(2));
         assertThat(scores.get(0).dateTime, equalTo("12.11.2022 19:44"));
         assertThat(scores.get(0).score, equalTo(934000.0));
     }
