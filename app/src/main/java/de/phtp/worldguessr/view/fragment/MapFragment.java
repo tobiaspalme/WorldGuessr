@@ -26,6 +26,7 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 
 import de.phtp.worldguessr.R;
+import de.phtp.worldguessr.control.MapControl;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
 import de.phtp.worldguessr.view.activity.MainActivity;
 
@@ -93,15 +94,15 @@ public class MapFragment extends Fragment {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
                 //remove oldest GeoPoint
-                if(map.getOverlays().size() > 1) {
+                /*if(map.getOverlays().size() > 1) {
                     map.getOverlays().remove(1);
                 }
 
-                GeoPoint geoPoint = new GeoPoint(p.getLatitude(),p.getLongitude());
                 Marker startMarker = new Marker(map);
-                startMarker.setPosition(geoPoint);
+                startMarker.setPosition(p);
                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                map.getOverlays().add(startMarker);
+                map.getOverlays().add(startMarker);*/
+                MapControl.setMarker(map, p);
 
                 //refresh map
                 map.invalidate();
