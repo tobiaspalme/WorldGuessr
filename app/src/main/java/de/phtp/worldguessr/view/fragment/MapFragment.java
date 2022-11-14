@@ -23,14 +23,13 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
-import org.osmdroid.views.overlay.Marker;
 
 import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.control.MapControl;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
 import de.phtp.worldguessr.view.activity.MainActivity;
 
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements View.OnClickListener {
 
     private FragmentMapBinding binding;
     private View root;
@@ -38,7 +37,6 @@ public class MapFragment extends Fragment {
     private MapView map = null;
 
     private FloatingActionButton homeButton;
-
 
     @Nullable
     @Override
@@ -53,7 +51,9 @@ public class MapFragment extends Fragment {
 
 
         map = binding.map;
+
         homeButton = binding.fragmentMapFab;
+        homeButton.setOnClickListener(this);
 
         map.setTileSource(TileSourceFactory.MAPNIK);
 
@@ -70,51 +70,26 @@ public class MapFragment extends Fragment {
         //use touch gestures to zoom
         map.setMultiTouchControls(true);
 
-
         updateTouchPosition();
-        registerHomeButton();
-
 
         return root;
     }
 
-    private void registerHomeButton() {
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), MainActivity.class);
-                startActivity(myIntent);
-            }
-        });
-    }
-
-    private void updateTouchPosition(){
+    private void updateTouchPosition() {
 
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-                //remove oldest GeoPoint
-                /*if(map.getOverlays().size() > 1) {
-                    map.getOverlays().remove(1);
-                }
-
-                Marker startMarker = new Marker(map);
-                startMarker.setPosition(p);
-                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                map.getOverlays().add(startMarker);*/
                 MapControl.setMarker(map, p);
-
                 //refresh map
                 map.invalidate();
                 //change icon to checkmark
                 homeButton.setImageResource(R.drawable.ic_check);
 
-
                 //Snackbar for testing purpose
                 Snackbar snackbar = Snackbar
                         .make(binding.fragmentMapFab, "test123", Snackbar.LENGTH_INDEFINITE);
                 snackbar.show();
-
                 return false;
             }
 
@@ -124,9 +99,18 @@ public class MapFragment extends Fragment {
             }
         };
 
-
-        MapEventsOverlay OverlayEvents = new MapEventsOverlay(getActivity(), mReceive);
+        MapEventsOverlay OverlayEvents = new MapEventsOverlay(mReceive);
         map.getOverlays().add(OverlayEvents);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fragment_map_fab:
+                Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                startActivity(myIntent);
+                break;
+        }
     }
 
     @Override
@@ -156,4 +140,5 @@ public class MapFragment extends Fragment {
         super.onResume();
         map.onResume();
     }
+
 }
