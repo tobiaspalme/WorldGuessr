@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,12 +19,16 @@ public class PictureFragment extends Fragment {
     private FragmentPictureBinding binding;
     private View root;
 
+    private ImageView imageView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentPictureBinding.inflate(inflater, container, false);
         root = binding.getRoot();
         Log.d("P1", "PictureFragment Created");
+
+        imageView = binding.fragmentPictureImageView;
 
         return root;
     }
