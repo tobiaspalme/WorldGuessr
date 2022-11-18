@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 
 import de.phtp.worldguessr.R;
+import de.phtp.worldguessr.control.GameControl;
 import de.phtp.worldguessr.control.MapControl;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
 import de.phtp.worldguessr.view.activity.MainActivity;
@@ -36,25 +38,34 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     private MapView map = null;
 
-    private FloatingActionButton homeButton;
+    private FloatingActionButton floatingActionButton;
+
+    private boolean gameFinished = false;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMapBinding.inflate(inflater, container, false);
         root = binding.getRoot();
-        Log.d("M1", "MapFragment Created");
-
 
         Context ctx = getActivity();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
-
         map = binding.map;
 
-        homeButton = binding.fragmentMapFab;
-        homeButton.setOnClickListener(this);
+        mapSetUp();
 
+        floatingActionButton = binding.fragmentMapFab;
+        floatingActionButton.setOnClickListener(this);
+        floatingActionButton.hide();
+
+
+        updateTouchPosition();
+
+        return root;
+    }
+
+    private void mapSetUp() {
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         IMapController mapController = map.getController();
@@ -69,10 +80,6 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         map.setBuiltInZoomControls(false);
         //use touch gestures to zoom
         map.setMultiTouchControls(true);
-
-        updateTouchPosition();
-
-        return root;
     }
 
     private void updateTouchPosition() {
@@ -84,12 +91,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                 //refresh map
                 map.invalidate();
                 //change icon to checkmark
-                homeButton.setImageResource(R.drawable.ic_check);
-
-                //Snackbar for testing purpose
-                Snackbar snackbar = Snackbar
-                        .make(binding.fragmentMapFab, "test123", Snackbar.LENGTH_INDEFINITE);
-                snackbar.show();
+                floatingActionButton.show();
                 return false;
             }
 
@@ -107,8 +109,18 @@ public class MapFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fragment_map_fab:
-                Intent myIntent = new Intent(getActivity(), MainActivity.class);
-                startActivity(myIntent);
+                if (gameFinished) {
+                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(myIntent);
+                } else {
+                    //Display other GeoPoint and Score
+                    //Snackbar for testing purpose
+                    Snackbar snackbar = Snackbar
+                            .make(binding.fragmentMapFab, "Hier steht die Entfernung/Score", Snackbar.LENGTH_INDEFINITE);
+                    snackbar.show();
+                    floatingActionButton.setImageResource(R.drawable.ic_baseline_home_24);
+                    gameFinished = true;
+                }
                 break;
         }
     }
