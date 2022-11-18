@@ -1,8 +1,6 @@
 package de.phtp.worldguessr.control;
 
-import org.osmdroid.util.GeoPoint;
-
-public class DistanceCalculator {
+public class GameControl {
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         final double R = 6371000.0;
         double latARadiant = lat1 * Math.PI / 180;
