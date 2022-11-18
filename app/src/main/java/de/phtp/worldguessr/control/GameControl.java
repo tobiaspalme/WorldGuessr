@@ -1,6 +1,25 @@
 package de.phtp.worldguessr.control;
 
+import android.graphics.drawable.Drawable;
+
 public class GameControl {
+
+    private static GameControl instance;
+
+    private Drawable currentImage;
+
+
+    private GameControl(){
+        //fetch image from database
+    }
+
+    public static GameControl getInstance(){
+        if(instance == null){
+            instance = new GameControl();
+        }
+        return instance;
+    }
+
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         final double R = 6371000.0;
         double latARadiant = lat1 * Math.PI / 180;
@@ -16,4 +35,6 @@ public class GameControl {
 
         return R * c;
     }
+
+
 }
