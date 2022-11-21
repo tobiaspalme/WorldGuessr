@@ -22,4 +22,7 @@ public interface DAO {
 
     @Query("SELECT pictureName FROM PictureAndPlace WHERE :id=id")
     String getPictureName(int id);
+
+    @Query("SELECT COUNT(id) FROM PictureAndPlace")
+    int getNumberOfIds();
 }
