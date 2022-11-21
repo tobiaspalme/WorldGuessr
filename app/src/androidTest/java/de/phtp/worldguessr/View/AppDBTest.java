@@ -47,10 +47,12 @@ public class AppDBTest {
         test.id = 1;
         test.latitude = 5.4;
         test.longitude = 6.2;
+        test.pictureName = "testBild";
         dao.insertPictureAndPlace(test);
         Place place = dao.getPlace(1);
         assertThat(place.latitude, equalTo(5.4));
         assertThat(place.longitude, equalTo(6.2));
+        assertThat(dao.getPictureName(1), equalTo("testBild"));
     }
 
     @Test

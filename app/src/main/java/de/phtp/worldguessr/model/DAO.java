@@ -19,4 +19,7 @@ public interface DAO {
 
     @Query("SELECT dateTime, score FROM Scores")
     List<Score> getAllScores();
+
+    @Query("SELECT pictureName FROM PictureAndPlace WHERE :id=id")
+    String getPictureName(int id);
 }

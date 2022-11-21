@@ -10,4 +10,5 @@ public class PictureAndPlace {
 
     public double latitude;
     public double longitude;
+    public String pictureName;
 }
