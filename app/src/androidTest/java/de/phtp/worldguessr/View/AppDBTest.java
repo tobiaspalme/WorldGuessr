@@ -49,10 +49,10 @@ public class AppDBTest {
         test.longitude = 4.339904;
         test.pictureName = "atomium";
         dao.insertPictureAndPlace(test);
-        Place place = dao.getPlace(1);
+        Place place = dao.getPlace(0);
         assertThat(place.latitude, equalTo(50.896669));
         assertThat(place.longitude, equalTo(4.339904));
-        assertThat(dao.getPictureName(1), equalTo("atomium"));
+        assertThat(dao.getPictureName(0), equalTo("atomium"));
         PictureAndPlace test2 = new PictureAndPlace();
         PictureAndPlace test3 = new PictureAndPlace();
         test2.id = 1;
