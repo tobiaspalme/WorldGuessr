@@ -45,14 +45,14 @@ public class AppDBTest {
     public void testPictureAndPlace() {
         PictureAndPlace test = new PictureAndPlace();
         test.id = 1;
-        test.latitude = 5.4;
-        test.longitude = 6.2;
-        test.pictureName = "testBild";
+        test.latitude = 50.896669;
+        test.longitude = 4.339904;
+        test.pictureName = "atomium";
         dao.insertPictureAndPlace(test);
         Place place = dao.getPlace(1);
-        assertThat(place.latitude, equalTo(5.4));
-        assertThat(place.longitude, equalTo(6.2));
-        assertThat(dao.getPictureName(1), equalTo("testBild"));
+        assertThat(place.latitude, equalTo(50.896669));
+        assertThat(place.longitude, equalTo(4.339904));
+        assertThat(dao.getPictureName(1), equalTo("atomium"));
     }
 
     @Test
