@@ -5,8 +5,6 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +14,7 @@ import de.phtp.worldguessr.model.AppDB;
 import de.phtp.worldguessr.model.DAO;
 import de.phtp.worldguessr.model.PictureAndPlace;
 
-public class gameControlInstrumentedTest {
+public class GameControlInstrumentedTest {
     private AppDB db;
     private DAO dao;
 
