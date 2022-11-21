@@ -6,6 +6,7 @@ import java.util.Random;
 import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.model.AppDB;
 import de.phtp.worldguessr.model.DAO;
+import de.phtp.worldguessr.model.Place;
 
 public class GameControl {
 
@@ -22,11 +23,17 @@ public class GameControl {
        currentImageId = random.nextInt(dao.getNumberOfIds());
     }
 
-    public static GameControl getInstance(AppDB db){
+    public static GameControl createInstance(AppDB db){
         if(instance == null){
             instance = new GameControl(db);
         }
         return instance;
+    }
+    public static GameControl getInstance() {
+        return instance;
+    }
+    public static void deleteInstance() {
+        instance = null;
     }
 
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
@@ -55,6 +62,10 @@ public class GameControl {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public Place getPlace() {
+        return dao.getPlace(currentImageId);
     }
 
 
