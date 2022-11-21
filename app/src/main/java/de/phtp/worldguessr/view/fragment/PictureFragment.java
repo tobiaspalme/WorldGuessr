@@ -30,7 +30,10 @@ public class PictureFragment extends Fragment {
         root = binding.getRoot();
         Log.d("P1", "PictureFragment Created");
 
+        //GameControl gameControl = GameControl.getInstance();
+
         imageView = binding.fragmentPictureImageView;
+        //imageView.setImageResource(gameControl.getPictureId());
 
         return root;
     }
