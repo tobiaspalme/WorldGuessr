@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/fragment_picture_imageView"
-        android:src="@drawable/icon_photo"
+        android:src="@drawable/atomium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
