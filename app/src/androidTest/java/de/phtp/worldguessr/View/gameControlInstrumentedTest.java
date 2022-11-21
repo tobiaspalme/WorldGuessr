@@ -33,7 +33,7 @@ public class gameControlInstrumentedTest {
         testPicture.id = 0;
         testPicture.pictureName = "atomium";
         dao.insertPictureAndPlace(testPicture);
-        GameControl test = GameControl.getInstance(db);
+        GameControl test = GameControl.createInstance(db);
         assertEquals(R.drawable.atomium, test.getPictureId());
     }
 }
