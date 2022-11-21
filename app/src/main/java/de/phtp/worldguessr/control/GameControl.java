@@ -1,21 +1,30 @@
 package de.phtp.worldguessr.control;
 
-import android.graphics.drawable.Drawable;
+import java.lang.reflect.Field;
+import java.util.Random;
+
+import de.phtp.worldguessr.R;
+import de.phtp.worldguessr.model.AppDB;
+import de.phtp.worldguessr.model.DAO;
 
 public class GameControl {
 
     private static GameControl instance;
 
-    private Drawable currentImage;
+    private int currentImageId;
+
+    private DAO dao;
 
 
-    private GameControl(){
-        //fetch image from database
+    private GameControl(AppDB db){
+       dao = db.dao();
+       Random random = new Random();
+       currentImageId = random.nextInt(dao.getNumberOfIds());
     }
 
-    public static GameControl getInstance(){
+    public static GameControl getInstance(AppDB db){
         if(instance == null){
-            instance = new GameControl();
+            instance = new GameControl(db);
         }
         return instance;
     }
@@ -34,6 +43,18 @@ public class GameControl {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
         return R * c;
+    }
+
+    public int getPictureId() {
+        String resName = dao.getPictureName(currentImageId);
+
+        try {
+            Field idField = R.drawable.class.getDeclaredField(resName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
 
