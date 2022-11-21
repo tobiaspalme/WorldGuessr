@@ -8,13 +8,16 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import de.phtp.worldguessr.R;
+import de.phtp.worldguessr.model.AppDB;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
 
     Button startButton;
     Button historyButton;
+    AppDB db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         startButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
 
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "AppDatabase").allowMainThreadQueries().build();
+
     }
 
     @Override
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 Intent myIntent = new Intent(MainActivity.this, GameScreenActivity.class);
                 startActivity(myIntent);
                 Log.d("StartClick","button pressed");
+                //GameControl.createInstance(db);
                 break;
             case R.id.activity_main_history_button:
                 Intent myIntent2 = new Intent(MainActivity.this, HistoryActivity.class);
@@ -43,5 +49,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 Log.d("StartClick","button2 pressed");
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        db.close();
     }
 }
