@@ -1,4 +1,6 @@
-package de.phtp.worldguessr.View;
+package de.phtp.worldguessr.control;
+
+import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
 
