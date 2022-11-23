@@ -1,4 +1,4 @@
-package de.phtp.worldguessr.View;
+package de.phtp.worldguessr.view;
 
 import androidx.test.core.app.ActivityScenario;
 
