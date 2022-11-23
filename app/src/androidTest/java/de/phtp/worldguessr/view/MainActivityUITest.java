@@ -25,7 +25,7 @@ public class MainActivityUITest {
 
     @Before
     public void setUp(){
-        ActivityScenario<MainActivity> mainActivityScenario = ActivityScenario.launch(MainActivity.class);
+        ActivityScenario.launch(MainActivity.class);
         Intents.init();
     }
 
