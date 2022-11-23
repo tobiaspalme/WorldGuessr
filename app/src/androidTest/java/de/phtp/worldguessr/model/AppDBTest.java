@@ -1,4 +1,4 @@
-package de.phtp.worldguessr.View;
+package de.phtp.worldguessr.model;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
