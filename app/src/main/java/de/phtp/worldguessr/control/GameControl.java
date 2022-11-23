@@ -1,5 +1,7 @@
 package de.phtp.worldguessr.control;
 
+import android.os.AsyncTask;
+
 import java.lang.reflect.Field;
 import java.util.Random;
 
@@ -20,7 +22,7 @@ public class GameControl {
     private GameControl(AppDB db){
        dao = db.dao();
        Random random = new Random();
-       currentImageId = random.nextInt(dao.getNumberOfIds());
+       AsyncTask.execute(() -> currentImageId = random.nextInt(dao.getNumberOfIds()));
     }
 
     public static GameControl createInstance(AppDB db){
