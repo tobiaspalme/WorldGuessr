@@ -42,6 +42,8 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     private boolean gameFinished = false;
 
+    private final GeoPoint START_POINT = new GeoPoint(48.8583, 2.2944);
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,9 +71,8 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         IMapController mapController = map.getController();
-        mapController.setZoom(4);
-        GeoPoint startPoint = new GeoPoint(48.8583, 2.2944);
-        mapController.setCenter(startPoint);
+        mapController.setZoom(4.0);
+        mapController.setCenter(START_POINT);
 
         map.setHorizontalMapRepetitionEnabled(false);
         map.setVerticalMapRepetitionEnabled(false);
