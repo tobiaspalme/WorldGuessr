@@ -2,13 +2,14 @@ package de.phtp.worldguessr.model;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
 
 @Dao
 public interface DAO {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPictureAndPlace(PictureAndPlace pictureAndPlace);
 
     @Query("SELECT latitude, longitude FROM PictureAndPlace WHERE :id=id")
