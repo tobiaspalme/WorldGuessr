@@ -111,6 +111,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.fragment_map_fab:
                 if (gameFinished) {
+                    GameControl.deleteInstance();
                     Intent myIntent = new Intent(getActivity(), MainActivity.class);
                     startActivity(myIntent);
                 } else {
