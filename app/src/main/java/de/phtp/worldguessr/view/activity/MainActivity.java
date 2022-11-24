@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import de.phtp.worldguessr.R;
+import de.phtp.worldguessr.control.GameControl;
 import de.phtp.worldguessr.model.AppDB;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         startButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "AppDatabase").allowMainThreadQueries().build();
+        db = AppDB.getInstance(getApplicationContext());
 
     }
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 Intent myIntent = new Intent(MainActivity.this, GameScreenActivity.class);
                 startActivity(myIntent);
                 Log.d("StartClick","button pressed");
-                //GameControl.createInstance(db);
+                GameControl.createInstance(db);
                 break;
             case R.id.activity_main_history_button:
                 Intent myIntent2 = new Intent(MainActivity.this, HistoryActivity.class);
