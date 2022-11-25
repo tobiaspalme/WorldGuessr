@@ -41,6 +41,11 @@ public class MainActivityUITest {
     }
 
     @Test
+    public void testTitleIsDisplayed(){
+        onView(withId(R.id.activity_main_app_title)).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void testButtonsAreClickable(){
         onView(withId(R.id.activity_main_start_game_button)).check(matches(isClickable()));
         onView(withId(R.id.activity_main_history_button)).check(matches(isClickable()));
