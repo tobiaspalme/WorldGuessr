@@ -2,6 +2,7 @@ package de.phtp.worldguessr.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -24,6 +25,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.Marker;
 
 import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.control.GameControl;
@@ -115,11 +117,11 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                     Intent myIntent = new Intent(getActivity(), MainActivity.class);
                     startActivity(myIntent);
                 } else {
-                    //Display other GeoPoint and Score
-                    //Snackbar for testing purpose
-                    Snackbar snackbar = Snackbar
-                            .make(binding.fragmentMapFab, "Hier steht die Entfernung/Score", Snackbar.LENGTH_INDEFINITE);
-                    snackbar.show();
+                    AsyncTask.execute(() -> {
+                        String text = GameControl.getInstance().finalizeGame(((Marker)map.getOverlays().get(1)).getPosition());
+                        Snackbar snackbar = Snackbar
+                                .make(binding.fragmentMapFab, text, Snackbar.LENGTH_INDEFINITE);
+                        snackbar.show();});
                     floatingActionButton.setImageResource(R.drawable.ic_baseline_home_24);
                     gameFinished = true;
                 }
