@@ -25,18 +25,23 @@ public abstract class AppDB extends RoomDatabase {
 
     private void populateData() {
         runInTransaction(() -> {
-            PictureAndPlace place1 = new PictureAndPlace();
-            place1.id = 0;
-            place1.latitude = 50.896669;
-            place1.longitude = 4.339904;
-            place1.pictureName = "atomium";
+            PictureAndPlace place1 = new PictureAndPlace(0,50.896669,4.339904,"atomium");
             dao().insertPictureAndPlace(place1);
-            PictureAndPlace place2 = new PictureAndPlace();
-            place2.id = 1;
-            place2.latitude = 43.723043;
-            place2.longitude = 10.396985;
-            place2.pictureName = "schiefer_turm";
+
+            PictureAndPlace place2 = new PictureAndPlace(1,43.723043,10.396985,"schiefer_turm");
             dao().insertPictureAndPlace(place2);
+
+            PictureAndPlace place3 = new PictureAndPlace(2,-33.85547376343816,151.2104538685024,"sydneyopera");
+            dao().insertPictureAndPlace(place3);
+
+            PictureAndPlace place4 = new PictureAndPlace(3,27.17370399232108,78.041978392291,"tadschmahal");
+            dao().insertPictureAndPlace(place4);
+
+            PictureAndPlace place5 = new PictureAndPlace(4,41.882700057133704,-87.622719436241,"chicagobean");
+            dao().insertPictureAndPlace(place5);
+
+            PictureAndPlace place6 = new PictureAndPlace(5,41.40280210573762,2.1739834125656623,"sagradafamilia");
+            dao().insertPictureAndPlace(place6);
             });
     }
 }

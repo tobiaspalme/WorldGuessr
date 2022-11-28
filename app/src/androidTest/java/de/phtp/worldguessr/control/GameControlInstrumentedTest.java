@@ -29,10 +29,9 @@ public class GameControlInstrumentedTest {
 
     @Test
     public void testGetPictureId() {
-        PictureAndPlace testPicture = new PictureAndPlace();
-        testPicture.id = 0;
-        testPicture.pictureName = "atomium";
+        PictureAndPlace testPicture = new PictureAndPlace(0,50.896669,4.339904,"atomium");
         dao.insertPictureAndPlace(testPicture);
+
         GameControl test = GameControl.createInstance(db);
         assertEquals(R.drawable.atomium, test.getPictureId());
     }
