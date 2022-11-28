@@ -2,7 +2,11 @@ package de.phtp.worldguessr.control;
 
 import android.os.AsyncTask;
 
+import org.osmdroid.util.GeoPoint;
+
 import java.lang.reflect.Field;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 import de.phtp.worldguessr.R;
@@ -64,6 +68,24 @@ public class GameControl {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public String finalizeGame(GeoPoint p) {
+        Place realPace = dao.getPlace(currentImageId);
+        double distance = calculateDistance(p.getLatitude(), p.getLongitude(), realPace.latitude, realPace.longitude);
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        StringBuilder erg = new StringBuilder("distance: ");
+        if(distance <= 1000) {
+            erg.append(df.format(distance));
+            erg.append("m");
+        }
+        else{
+            distance /= 1000;
+            erg.append(df.format(distance));
+            erg.append("km");
+        }
+        return erg.toString();
     }
 
     public Place getPlace() {
