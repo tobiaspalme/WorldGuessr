@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -118,10 +116,11 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                     startActivity(myIntent);
                 } else {
                     AsyncTask.execute(() -> {
-                        String text = GameControl.getInstance().finalizeGame(((Marker)map.getOverlays().get(1)).getPosition());
+                        String text = GameControl.getInstance().finalizeGame(map, getResources().getDrawable(R.drawable.final_marker_icon));
                         Snackbar snackbar = Snackbar
                                 .make(binding.fragmentMapFab, text, Snackbar.LENGTH_INDEFINITE);
                         snackbar.show();});
+                    map.invalidate();
                     floatingActionButton.setImageResource(R.drawable.ic_baseline_home_24);
                     gameFinished = true;
                 }
