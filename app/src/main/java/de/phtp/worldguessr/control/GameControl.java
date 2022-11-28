@@ -105,19 +105,17 @@ public class GameControl {
     }
 
     private String buildDateTime(LocalDateTime dateTime) {
-        StringBuilder erg = new StringBuilder();
-        erg.append(dateTime.getDayOfMonth());
-        erg.append(".");
-        erg.append(dateTime.getMonth());
-        erg.append(".");
-        erg.append(dateTime.getYear());
-        erg.append(" ");
-        erg.append(dateTime.getHour());
-        erg.append(":");
-        erg.append(dateTime.getMinute());
-        erg.append(":");
-        erg.append(dateTime.getSecond());
-        return erg.toString();
+        return dateTime.getDayOfMonth() +
+                "." +
+                dateTime.getMonth() +
+                "." +
+                dateTime.getYear() +
+                " " +
+                dateTime.getHour() +
+                ":" +
+                dateTime.getMinute() +
+                ":" +
+                dateTime.getSecond();
     }
 
 
