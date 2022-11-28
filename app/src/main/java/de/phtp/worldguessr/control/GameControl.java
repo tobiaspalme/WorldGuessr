@@ -95,7 +95,6 @@ public class GameControl {
             erg.append(distance);
             erg.append("km");
         }
-        System.out.println(dao.getAllScores());
         return erg.toString();
     }
 
