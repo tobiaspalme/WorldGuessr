@@ -76,9 +76,9 @@ public class GameControl {
         }
     }
 
-    public String finalizeGame(MapView map, Drawable d) {
+    public String finalizeGame(MapView map) {
         Place realPace = dao.getPlace(currentImageId);
-        MapControl.setFinalMarker(map, new GeoPoint(realPace.latitude, realPace.longitude), d);
+        MapControl.setFinalMarker(map, new GeoPoint(realPace.latitude, realPace.longitude));
         GeoPoint p = ((Marker)map.getOverlays().get(1)).getPosition();
 
         double distance = calculateDistance(p.getLatitude(), p.getLongitude(), realPace.latitude, realPace.longitude);

@@ -20,10 +20,9 @@ public class MapControl {
         map.getOverlays().add(startMarker);
     }
 
-    public static void setFinalMarker(MapView map, GeoPoint p, Drawable d) {
+    public static void setFinalMarker(MapView map, GeoPoint p) {
         Marker startMarker = new Marker(map);
         startMarker.setPosition(p);
-        startMarker.setIcon(d);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         map.getOverlays().add(startMarker);
     }

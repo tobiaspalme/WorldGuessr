@@ -116,7 +116,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                     startActivity(myIntent);
                 } else {
                     AsyncTask.execute(() -> {
-                        String text = GameControl.getInstance().finalizeGame(map, getResources().getDrawable(R.drawable.final_marker_icon));
+                        String text = GameControl.getInstance().finalizeGame(map);
                         Snackbar snackbar = Snackbar
                                 .make(binding.fragmentMapFab, text, Snackbar.LENGTH_INDEFINITE);
                         snackbar.show();});
