@@ -1,8 +1,11 @@
 package de.phtp.worldguessr.control;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -73,8 +76,11 @@ public class GameControl {
         }
     }
 
-    public String finalizeGame(GeoPoint p) {
+    public String finalizeGame(MapView map, Drawable d) {
         Place realPace = dao.getPlace(currentImageId);
+        MapControl.setFinalMarker(map, new GeoPoint(realPace.latitude, realPace.longitude), d);
+        GeoPoint p = ((Marker)map.getOverlays().get(1)).getPosition();
+
         double distance = calculateDistance(p.getLatitude(), p.getLongitude(), realPace.latitude, realPace.longitude);
         distance = round(distance);
 
