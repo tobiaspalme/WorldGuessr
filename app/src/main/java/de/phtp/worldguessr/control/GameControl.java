@@ -6,12 +6,16 @@ import android.os.AsyncTask;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Polygon;
+import org.osmdroid.views.overlay.Polyline;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import de.phtp.worldguessr.R;
@@ -78,8 +82,16 @@ public class GameControl {
 
     public String finalizeGame(MapView map) {
         Place realPace = dao.getPlace(currentImageId);
-        MapControl.setFinalMarker(map, new GeoPoint(realPace.latitude, realPace.longitude));
+        GeoPoint realGeoPoint = new GeoPoint(realPace.latitude, realPace.longitude);
+        MapControl.setFinalMarker(map, realGeoPoint);
         GeoPoint p = ((Marker)map.getOverlays().get(1)).getPosition();
+        Polyline line = new Polyline();
+        map.getOverlays().add(line);
+        line.addPoint(p);
+        line.addPoint(realGeoPoint);
+        line.getOutlinePaint().setStrokeWidth(3);
+
+
 
         double distance = calculateDistance(p.getLatitude(), p.getLongitude(), realPace.latitude, realPace.longitude);
         distance = round(distance);
