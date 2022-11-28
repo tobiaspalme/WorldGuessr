@@ -5,14 +5,17 @@ import android.os.AsyncTask;
 import org.osmdroid.util.GeoPoint;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.model.AppDB;
 import de.phtp.worldguessr.model.DAO;
 import de.phtp.worldguessr.model.Place;
+import de.phtp.worldguessr.model.Scores;
 
 public class GameControl {
 
@@ -73,23 +76,49 @@ public class GameControl {
     public String finalizeGame(GeoPoint p) {
         Place realPace = dao.getPlace(currentImageId);
         double distance = calculateDistance(p.getLatitude(), p.getLongitude(), realPace.latitude, realPace.longitude);
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.HALF_UP);
+        distance = round(distance);
+
+        LocalDateTime dateTime = LocalDateTime.now();
+        Scores score = new Scores();
+        score.dateTime = buildDateTime(dateTime);
+        score.score = distance;
+        dao.insertScore(score);
+
         StringBuilder erg = new StringBuilder("distance: ");
         if(distance <= 1000) {
-            erg.append(df.format(distance));
+            erg.append(distance);
             erg.append("m");
         }
         else{
             distance /= 1000;
-            erg.append(df.format(distance));
+            distance = round(distance);
+            erg.append(distance);
             erg.append("km");
         }
+        System.out.println(dao.getAllScores());
         return erg.toString();
     }
 
-    public Place getPlace() {
-        return dao.getPlace(currentImageId);
+    public static double round(double value) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    private String buildDateTime(LocalDateTime dateTime) {
+        StringBuilder erg = new StringBuilder();
+        erg.append(dateTime.getDayOfMonth());
+        erg.append(".");
+        erg.append(dateTime.getMonth());
+        erg.append(".");
+        erg.append(dateTime.getYear());
+        erg.append(" ");
+        erg.append(dateTime.getHour());
+        erg.append(":");
+        erg.append(dateTime.getMinute());
+        erg.append(":");
+        erg.append(dateTime.getSecond());
+        return erg.toString();
     }
 
 
