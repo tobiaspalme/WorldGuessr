@@ -17,6 +17,7 @@ public class MapControl {
         Marker startMarker = new Marker(map);
         startMarker.setPosition(p);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        startMarker.setInfoWindow(null);
         map.getOverlays().add(startMarker);
     }
 
@@ -24,6 +25,7 @@ public class MapControl {
         Marker startMarker = new Marker(map);
         startMarker.setPosition(p);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        startMarker.setInfoWindow(null);
         map.getOverlays().add(startMarker);
     }
 }
