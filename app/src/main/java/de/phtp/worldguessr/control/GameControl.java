@@ -117,7 +117,7 @@ public class GameControl {
         return bd.doubleValue();
     }
 
-    private String buildDateTime(LocalDateTime dateTime) {
+    public static String buildDateTime(LocalDateTime dateTime) {
         return dateTime.getDayOfMonth() +
                 "." +
                 dateTime.getMonth() +
