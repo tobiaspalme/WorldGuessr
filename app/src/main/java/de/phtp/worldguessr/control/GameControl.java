@@ -85,13 +85,8 @@ public class GameControl {
         GeoPoint realGeoPoint = new GeoPoint(realPace.latitude, realPace.longitude);
         MapControl.setFinalMarker(map, realGeoPoint);
         GeoPoint p = ((Marker)map.getOverlays().get(1)).getPosition();
-        Polyline line = new Polyline();
-        map.getOverlays().add(line);
-        line.addPoint(p);
-        line.addPoint(realGeoPoint);
-        line.getOutlinePaint().setStrokeWidth(3);
 
-
+        MapControl.drawLine(map, p, realGeoPoint);
 
         double distance = calculateDistance(p.getLatitude(), p.getLongitude(), realPace.latitude, realPace.longitude);
         distance = round(distance);

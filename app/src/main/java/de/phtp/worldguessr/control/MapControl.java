@@ -1,12 +1,9 @@
 package de.phtp.worldguessr.control;
 
-import android.graphics.drawable.Drawable;
-
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-
-import de.phtp.worldguessr.R;
+import org.osmdroid.views.overlay.Polyline;
 
 public class MapControl {
     public static void setMarker(MapView map, GeoPoint p) {
@@ -27,5 +24,13 @@ public class MapControl {
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         startMarker.setInfoWindow(null);
         map.getOverlays().add(startMarker);
+    }
+
+    public static void drawLine(MapView map, GeoPoint start, GeoPoint finish) {
+        Polyline line = new Polyline();
+        line.addPoint(start);
+        line.addPoint(finish);
+        line.getOutlinePaint().setStrokeWidth(3);
+        map.getOverlays().add(line);
     }
 }
