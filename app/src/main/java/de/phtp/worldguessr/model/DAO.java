@@ -15,15 +15,15 @@ public interface DAO {
     @Query("SELECT latitude, longitude FROM PictureAndPlace WHERE :id=id")
     Place getPlace(int id);
 
-    @Insert
-    void insertScore(Scores score);
-
-    @Query("SELECT dateTime, score FROM Scores")
-    List<Score> getAllScores();
-
     @Query("SELECT pictureName FROM PictureAndPlace WHERE :id=id")
     String getPictureName(int id);
 
     @Query("SELECT COUNT(id) FROM PictureAndPlace")
     int getNumberOfIds();
+
+    @Insert
+    void insertScore(Scores score);
+
+    @Query("SELECT dateTime, score FROM Scores")
+    List<Score> getAllScores();
 }
