@@ -29,7 +29,6 @@ public class PictureFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentPictureBinding.inflate(inflater, container, false);
         root = binding.getRoot();
-        Log.d("P1", "PictureFragment Created");
 
         GameControl gameControl = GameControl.getInstance();
 
