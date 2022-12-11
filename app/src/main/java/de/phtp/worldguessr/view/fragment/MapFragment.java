@@ -113,6 +113,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                 if (gameFinished) {
                     GameControl.deleteInstance();
                     Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                    //myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); <---- should work but lets the app crash when database wants to write scores
                     startActivity(myIntent);
                 } else {
                     AsyncTask.execute(() -> {
