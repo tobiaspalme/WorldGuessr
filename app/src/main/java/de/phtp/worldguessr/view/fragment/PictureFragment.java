@@ -34,7 +34,9 @@ public class PictureFragment extends Fragment {
 
         imageView = binding.fragmentPictureImageView;
 
-        AsyncTask.execute(() -> imageView.setImageResource(gameControl.getPictureId()));
+        if (gameControl != null) {
+            AsyncTask.execute(() -> imageView.setImageResource(gameControl.getPictureId()));
+        }
         return root;
     }
 
