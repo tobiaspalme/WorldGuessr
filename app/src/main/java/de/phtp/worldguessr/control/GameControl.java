@@ -80,7 +80,7 @@ public class GameControl implements IGameControl{
         }
     }
 
-    public String finalizeGame(MapView map,MapControl mapControl) {
+    public String finalizeGame(MapView map,IMapControl mapControl) {
         Place realPace = dao.getPlace(currentImageId);
         GeoPoint realGeoPoint = new GeoPoint(realPace.latitude, realPace.longitude);
         mapControl.setFinalMarker(realGeoPoint);

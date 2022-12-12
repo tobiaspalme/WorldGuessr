@@ -27,6 +27,7 @@ import org.osmdroid.views.overlay.Marker;
 
 import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.control.GameControl;
+import de.phtp.worldguessr.control.IMapControl;
 import de.phtp.worldguessr.control.MapControl;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
 import de.phtp.worldguessr.view.activity.MainActivity;
@@ -38,7 +39,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     private MapView map = null;
 
-    private MapControl mapControl;
+    private IMapControl mapControl;
 
     private FloatingActionButton floatingActionButton;
 

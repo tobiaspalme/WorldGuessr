@@ -8,7 +8,7 @@ public interface IGameControl {
 
     int getPictureId();
 
-    String finalizeGame(MapView map,MapControl mapControl);
+    String finalizeGame(MapView map,IMapControl mapControl);
 
 
 }
