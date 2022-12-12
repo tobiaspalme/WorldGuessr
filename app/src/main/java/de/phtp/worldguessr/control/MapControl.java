@@ -5,8 +5,15 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 
-public class MapControl {
-    public static void setMarker(MapView map, GeoPoint p) {
+public class MapControl implements IMapControl{
+
+    private MapView map;
+
+    public MapControl(MapView map) {
+        this.map = map;
+    }
+
+    public void setMarker(GeoPoint p) {
         if(map.getOverlays().size() > 1) {
             map.getOverlays().remove(1);
         }
@@ -18,7 +25,7 @@ public class MapControl {
         map.getOverlays().add(startMarker);
     }
 
-    public static void setFinalMarker(MapView map, GeoPoint p) {
+    public void setFinalMarker(GeoPoint p) {
         Marker startMarker = new Marker(map);
         startMarker.setPosition(p);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -26,7 +33,7 @@ public class MapControl {
         map.getOverlays().add(startMarker);
     }
 
-    public static void drawLine(MapView map, GeoPoint start, GeoPoint finish) {
+    public void drawLine(GeoPoint start, GeoPoint finish) {
         Polyline line = new Polyline();
         line.addPoint(start);
         line.addPoint(finish);
