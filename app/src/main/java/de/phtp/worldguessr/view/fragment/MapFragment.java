@@ -38,11 +38,15 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     private MapView map = null;
 
+    private MapControl mapControl;
+
     private FloatingActionButton floatingActionButton;
 
     private boolean gameFinished = false;
 
     private final GeoPoint START_POINT = new GeoPoint(48.8583, 2.2944);
+
+
 
     @Nullable
     @Override
@@ -56,6 +60,8 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         map = binding.map;
 
         mapSetUp();
+
+        mapControl = new MapControl(map);
 
         floatingActionButton = binding.fragmentMapFab;
         floatingActionButton.setOnClickListener(this);
@@ -88,7 +94,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-                MapControl.setMarker(map, p);
+                mapControl.setMarker(p);
                 //refresh map
                 map.invalidate();
                 //change icon to checkmark
@@ -117,7 +123,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                     startActivity(myIntent);
                 } else {
                     AsyncTask.execute(() -> {
-                        String text = GameControl.getInstance().finalizeGame(map);
+                        String text = GameControl.getInstance().finalizeGame(map,mapControl);
                         Snackbar snackbar = Snackbar
                                 .make(binding.fragmentMapFab, text, Snackbar.LENGTH_INDEFINITE);
                         snackbar.show();});
