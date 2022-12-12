@@ -1,21 +1,16 @@
 package de.phtp.worldguessr.control;
 
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.Polygon;
-import org.osmdroid.views.overlay.Polyline;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 import de.phtp.worldguessr.R;
@@ -31,6 +26,9 @@ public class GameControl implements IGameControl{
     private int currentImageId;
 
     private DAO dao;
+
+    private IGeoPoint currMapCenter;
+    private double currZoomLevel = 4.0;
 
 
     private GameControl(AppDB db){
@@ -131,5 +129,19 @@ public class GameControl implements IGameControl{
                 dateTime.getSecond();
     }
 
+    public IGeoPoint getCurrMapCenter() {
+        return currMapCenter;
+    }
 
+    public void setCurrMapCenter(IGeoPoint currMapCenter) {
+        this.currMapCenter = currMapCenter;
+    }
+
+    public double getCurrZoomLevel() {
+        return currZoomLevel;
+    }
+
+    public void setCurrZoomLevel(double currZoomLevel) {
+        this.currZoomLevel = currZoomLevel;
+    }
 }

@@ -78,8 +78,11 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         IMapController mapController = map.getController();
-        mapController.setZoom(4.0);
-        mapController.setCenter(START_POINT);
+
+        if(GameControl.getInstance() != null) {
+            mapController.setZoom(GameControl.getInstance().getCurrZoomLevel());
+            mapController.setCenter(GameControl.getInstance().getCurrMapCenter());
+        }
 
         map.setHorizontalMapRepetitionEnabled(false);
         map.setVerticalMapRepetitionEnabled(false);
@@ -88,6 +91,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         map.setBuiltInZoomControls(false);
         //use touch gestures to zoom
         map.setMultiTouchControls(true);
+
     }
 
     private void updateTouchPosition() {
@@ -133,5 +137,15 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+    @Override
+    public void onDestroyView() {
+        if(GameControl.getInstance() != null){
+            GameControl.getInstance().setCurrMapCenter(map.getMapCenter());
+            GameControl.getInstance().setCurrZoomLevel(map.getZoomLevelDouble());
+        }
+        super.onDestroyView();
+    }
+
 
 }
