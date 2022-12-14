@@ -49,8 +49,20 @@ public abstract class AppDB extends RoomDatabase {
             PictureAndPlace place8 = new PictureAndPlace(7,48.860859213980156, 2.334786410092783,"louvre");
             dao().insertPictureAndPlace(place8);
 
-            PictureAndPlace place9 = new PictureAndPlace(7,40.44054411187361, 116.56552639025121,"wallofchina");
+            PictureAndPlace place9 = new PictureAndPlace(8,40.44054411187361, 116.56552639025121,"wallofchina");
             dao().insertPictureAndPlace(place9);
+
+            PictureAndPlace place10 = new PictureAndPlace(9,37.82877782416662, -122.4860384466219,"goldengatebridge");
+            dao().insertPictureAndPlace(place10);
+
+            PictureAndPlace place11 = new PictureAndPlace(10,30.32846191134785, 35.44436319197595,"petra");
+            dao().insertPictureAndPlace(place11);
+
+            PictureAndPlace place12 = new PictureAndPlace(11,51.178942783556174, -1.8262195233734626,"stonehenge");
+            dao().insertPictureAndPlace(place12);
+
+            PictureAndPlace place13 = new PictureAndPlace(12,20.68429174286462, -88.56778604291996,"chichenitza");
+            dao().insertPictureAndPlace(place13);
             });
     }
 }
