@@ -55,4 +55,17 @@ public class GameScreenActivityUITest {
         onView(withId(R.id.navigation_picture)).perform(click());
         onView(withId(R.id.fragment_picture)).check(matches(isDisplayed()));
     }
+
+    @Test
+    public void testPictureIsDisplayed(){
+        onView(withId(R.id.navigation_picture)).perform(click());
+        onView(withId(R.id.fragment_picture_imageView)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testMapIsDisplayed(){
+        onView(withId(R.id.navigation_map)).perform(click());
+        onView(withId(R.id.map)).check(matches(isDisplayed()));
+    }
+
 }
