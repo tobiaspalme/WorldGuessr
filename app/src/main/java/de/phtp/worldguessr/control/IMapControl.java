@@ -31,7 +31,7 @@ public interface IMapControl {
      */
     void drawLine(GeoPoint start, GeoPoint finish);
 
-    public void updateMap(MapView map);
+    void updateMap(MapView map);
 
     IGeoPoint getCurrMapCenter();
 
