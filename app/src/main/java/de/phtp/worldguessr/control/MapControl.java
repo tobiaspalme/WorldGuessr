@@ -1,15 +1,34 @@
 package de.phtp.worldguessr.control;
 
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 
+import de.phtp.worldguessr.model.AppDB;
+
 public class MapControl implements IMapControl{
+
+    private static MapControl instance;
 
     private MapView map;
 
-    public MapControl(MapView map) {
+    private IGeoPoint currMapCenter;
+    private double currZoomLevel = 4.0;
+
+    public static MapControl getInstance(){
+        if(instance == null){
+            instance = new MapControl();
+        }
+        return instance;
+    }
+
+    public static void deleteInstance() {
+        instance = null;
+    }
+
+    public void updateMap(MapView map){
         this.map = map;
     }
 
@@ -39,5 +58,21 @@ public class MapControl implements IMapControl{
         line.addPoint(finish);
         line.getOutlinePaint().setStrokeWidth(3);
         map.getOverlays().add(line);
+    }
+
+    public IGeoPoint getCurrMapCenter() {
+        return currMapCenter;
+    }
+
+    public void setCurrMapCenter(IGeoPoint currMapCenter) {
+        this.currMapCenter = currMapCenter;
+    }
+
+    public double getCurrZoomLevel() {
+        return currZoomLevel;
+    }
+
+    public void setCurrZoomLevel(double currZoomLevel) {
+        this.currZoomLevel = currZoomLevel;
     }
 }

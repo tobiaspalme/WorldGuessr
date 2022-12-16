@@ -45,10 +45,6 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     private boolean gameFinished = false;
 
-    private final GeoPoint START_POINT = new GeoPoint(48.8583, 2.2944);
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,9 +56,10 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
         map = binding.map;
 
-        mapSetUp();
+        mapControl = MapControl.getInstance();
+        mapControl.updateMap(map);
 
-        mapControl = new MapControl(map);
+        mapSetUp();
 
         floatingActionButton = binding.fragmentMapFab;
         floatingActionButton.setOnClickListener(this);
@@ -79,9 +76,9 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
         IMapController mapController = map.getController();
 
-        if(GameControl.getInstance() != null) {
-            mapController.setZoom(GameControl.getInstance().getCurrZoomLevel());
-            mapController.setCenter(GameControl.getInstance().getCurrMapCenter());
+        if(mapControl != null) {
+            mapController.setZoom(mapControl.getCurrZoomLevel());
+            mapController.setCenter(mapControl.getCurrMapCenter());
         }
 
         map.setHorizontalMapRepetitionEnabled(false);
@@ -123,6 +120,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
             case R.id.fragment_map_fab:
                 if (gameFinished) {
                     GameControl.deleteInstance();
+                    MapControl.deleteInstance();
                     requireActivity().finish();
                 } else {
                     AsyncTask.execute(() -> {
@@ -140,9 +138,9 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
-        if(GameControl.getInstance() != null){
-            GameControl.getInstance().setCurrMapCenter(map.getMapCenter());
-            GameControl.getInstance().setCurrZoomLevel(map.getZoomLevelDouble());
+        if(mapControl != null){
+            mapControl.setCurrMapCenter(map.getMapCenter());
+            mapControl.setCurrZoomLevel(map.getZoomLevelDouble());
         }
         super.onDestroyView();
     }
