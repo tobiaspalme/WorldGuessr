@@ -27,10 +27,6 @@ public class GameControl implements IGameControl{
 
     private DAO dao;
 
-    private IGeoPoint currMapCenter;
-    private double currZoomLevel = 4.0;
-
-
     private GameControl(AppDB db){
        dao = db.dao();
        Random random = new Random();
@@ -127,21 +123,5 @@ public class GameControl implements IGameControl{
                 dateTime.getMinute() +
                 ":" +
                 dateTime.getSecond();
-    }
-
-    public IGeoPoint getCurrMapCenter() {
-        return currMapCenter;
-    }
-
-    public void setCurrMapCenter(IGeoPoint currMapCenter) {
-        this.currMapCenter = currMapCenter;
-    }
-
-    public double getCurrZoomLevel() {
-        return currZoomLevel;
-    }
-
-    public void setCurrZoomLevel(double currZoomLevel) {
-        this.currZoomLevel = currZoomLevel;
     }
 }
