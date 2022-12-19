@@ -22,6 +22,9 @@ public class MapControl implements IMapControl{
         return instance;
     }
 
+    private MapControl() {
+    }
+
     public static void deleteInstance() {
         instance = null;
     }
