@@ -6,8 +6,6 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 
-import de.phtp.worldguessr.model.AppDB;
-
 public class MapControl implements IMapControl{
 
     private static MapControl instance;
@@ -32,19 +30,13 @@ public class MapControl implements IMapControl{
         this.map = map;
     }
 
-    public void setMarker(GeoPoint p) {
-        if(map.getOverlays().size() > 1) {
-            map.getOverlays().remove(1);
+    public void setMarker(GeoPoint p, boolean isFinal) {
+        if(!isFinal) {
+            if(map.getOverlays().size() > 1) {
+                map.getOverlays().remove(1);
+            }
         }
 
-        Marker startMarker = new Marker(map);
-        startMarker.setPosition(p);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        startMarker.setInfoWindow(null);
-        map.getOverlays().add(startMarker);
-    }
-
-    public void setFinalMarker(GeoPoint p) {
         Marker startMarker = new Marker(map);
         startMarker.setPosition(p);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);

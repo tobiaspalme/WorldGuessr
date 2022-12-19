@@ -77,7 +77,7 @@ public class GameControl implements IGameControl{
     public String finalizeGame(MapView map,IMapControl mapControl) {
         Place realPace = dao.getPlace(currentImageId);
         GeoPoint realGeoPoint = new GeoPoint(realPace.latitude, realPace.longitude);
-        mapControl.setFinalMarker(realGeoPoint);
+        mapControl.setMarker(realGeoPoint, true);
         GeoPoint p = ((Marker)map.getOverlays().get(1)).getPosition();
 
         mapControl.drawLine(p, realGeoPoint);

@@ -1,7 +1,6 @@
 package de.phtp.worldguessr.view.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,14 +22,12 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
-import org.osmdroid.views.overlay.Marker;
 
 import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.control.GameControl;
 import de.phtp.worldguessr.control.IMapControl;
 import de.phtp.worldguessr.control.MapControl;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
-import de.phtp.worldguessr.view.activity.MainActivity;
 
 public class MapFragment extends Fragment implements View.OnClickListener {
 
@@ -96,7 +93,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-                mapControl.setMarker(p);
+                mapControl.setMarker(p, false);
                 //refresh map
                 map.invalidate();
                 //change icon to checkmark

@@ -13,15 +13,9 @@ public interface IMapControl {
      * Sets a Geopoint as a Marker on the map
      *
      * @param p Geopoint
+     * @param isFinal true if marker is final
      */
-    void setMarker(GeoPoint p);
-
-    /**
-     * Sets the final Geopoint as a Marker on the map
-     *
-     * @param p Geopoint
-     */
-    void setFinalMarker(GeoPoint p);
+    void setMarker(GeoPoint p, boolean isFinal);
 
     /**
      * Draws a Polyline between two Geopoints
