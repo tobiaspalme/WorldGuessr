@@ -93,11 +93,14 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-                mapControl.setMarker(p, false);
-                //refresh map
-                map.invalidate();
-                //change icon to checkmark
-                floatingActionButton.show();
+                if(!gameFinished){
+                    mapControl.setMarker(p, false);
+                    //refresh map
+                    map.invalidate();
+                    //change icon to checkmark
+                    floatingActionButton.show();
+
+                }
                 return false;
             }
 
@@ -127,6 +130,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                         snackbar.show();});
                     map.invalidate();
                     floatingActionButton.setImageResource(R.drawable.ic_baseline_home_24);
+                    //lock map
                     gameFinished = true;
                 }
                 break;
