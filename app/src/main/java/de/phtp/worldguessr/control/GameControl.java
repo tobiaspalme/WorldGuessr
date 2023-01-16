@@ -91,6 +91,16 @@ public class GameControl implements IGameControl{
         score.score = distance;
         dao.insertScore(score);
 
+        return buildSnackbarString(distance);
+    }
+
+    public static double round(double value) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    private String buildSnackbarString(double distance) {
         StringBuilder erg = new StringBuilder("distance: ");
         if(distance <= 1000) {
             erg.append(distance);
@@ -105,13 +115,7 @@ public class GameControl implements IGameControl{
         return erg.toString();
     }
 
-    public static double round(double value) {
-        BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
-
-    public static String buildDateTime(LocalDateTime dateTime) {
+    private String buildDateTime(LocalDateTime dateTime) {
         return dateTime.getDayOfMonth() +
                 "." +
                 dateTime.getMonth() +
