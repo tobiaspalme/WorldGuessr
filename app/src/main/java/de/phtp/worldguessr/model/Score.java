@@ -12,6 +12,11 @@ public class Score {
 
     @Override
     public String toString() {
-        return dateTime + " Score: " + String.format("%.2f", score);
+        String suffix = "m";
+        if(score > 1000) {
+            score /= 1000;
+            suffix = "km";
+        }
+        return "Distance: " + String.format("%.2f", score) + suffix + "  (" + dateTime + ")";
     }
 }
