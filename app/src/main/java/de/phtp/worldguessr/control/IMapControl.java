@@ -25,14 +25,34 @@ public interface IMapControl {
      */
     void drawLine(GeoPoint start, GeoPoint finish);
 
+    /**
+     * Assigns a new map to the MapControl
+     * @param map
+     */
     void updateMap(MapView map);
 
+    /**
+     * Get current map center from map
+     * @return IGeopoint
+     */
     IGeoPoint getCurrMapCenter();
 
+    /**
+     * Sets the current map center
+     * @param currMapCenter
+     */
     void setCurrMapCenter(IGeoPoint currMapCenter);
 
+    /**
+     * Get current zoom level
+     * @return double
+     */
     double getCurrZoomLevel();
 
+    /**
+     * Sets the current zoom level
+     * @param currZoomLevel
+     */
     void setCurrZoomLevel(double currZoomLevel);
 }
 
