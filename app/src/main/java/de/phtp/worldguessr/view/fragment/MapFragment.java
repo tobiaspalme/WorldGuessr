@@ -22,12 +22,13 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Polyline;
 
 import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.control.GameControl;
-import de.phtp.worldguessr.control.IMapControl;
-import de.phtp.worldguessr.control.MapControl;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
+import de.phtp.worldguessr.view.activity.GameScreenActivity;
 
 public class MapFragment extends Fragment implements View.OnClickListener {
 
@@ -36,7 +37,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     private MapView map = null;
 
-    private IMapControl mapControl;
+    private GameScreenActivity activity;
 
     private FloatingActionButton floatingActionButton;
 
@@ -53,8 +54,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
         map = binding.map;
 
-        mapControl = MapControl.getInstance();
-        mapControl.updateMap(map);
+        activity = (GameScreenActivity)getActivity();
 
         mapSetUp();
 
@@ -73,10 +73,8 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
         IMapController mapController = map.getController();
 
-        if(mapControl != null) {
-            mapController.setZoom(mapControl.getCurrZoomLevel());
-            mapController.setCenter(mapControl.getCurrMapCenter());
-        }
+        mapController.setZoom(activity.getCurrZoomLevel());
+        mapController.setCenter(activity.getCurrMapCenter());
 
         map.setHorizontalMapRepetitionEnabled(false);
         map.setVerticalMapRepetitionEnabled(false);
@@ -94,7 +92,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
                 if(!gameFinished){
-                    mapControl.setMarker(p, false);
+                    setMarker(p, false);
                     //refresh map
                     map.invalidate();
                     //change icon to checkmark
@@ -120,11 +118,10 @@ public class MapFragment extends Fragment implements View.OnClickListener {
             case R.id.fragment_map_fab:
                 if (gameFinished) {
                     GameControl.deleteInstance();
-                    MapControl.deleteInstance();
                     requireActivity().finish();
                 } else {
                     AsyncTask.execute(() -> {
-                        String text = GameControl.getInstance().finalizeGame(map,mapControl);
+                        String text = GameControl.getInstance().finalizeGame(map,this);
                         Snackbar snackbar = Snackbar
                                 .make(binding.fragmentMapFab, text, Snackbar.LENGTH_INDEFINITE);
                         snackbar.show();});
@@ -139,11 +136,31 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
-        if(mapControl != null){
-            mapControl.setCurrMapCenter(map.getMapCenter());
-            mapControl.setCurrZoomLevel(map.getZoomLevelDouble());
-        }
+        activity.setCurrMapCenter(map.getMapCenter());
+        activity.setCurrZoomLevel(map.getZoomLevelDouble());
         super.onDestroyView();
+    }
+
+    public void setMarker(GeoPoint p, boolean isFinal) {
+        if(!isFinal) {
+            if(map.getOverlays().size() > 1) {
+                map.getOverlays().remove(1);
+            }
+        }
+
+        Marker startMarker = new Marker(map);
+        startMarker.setPosition(p);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        startMarker.setInfoWindow(null);
+        map.getOverlays().add(startMarker);
+    }
+
+    public void drawLine(GeoPoint start, GeoPoint finish) {
+        Polyline line = new Polyline();
+        line.addPoint(start);
+        line.addPoint(finish);
+        line.getOutlinePaint().setStrokeWidth(3);
+        map.getOverlays().add(line);
     }
 
 

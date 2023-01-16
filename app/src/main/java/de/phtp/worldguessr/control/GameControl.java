@@ -18,6 +18,7 @@ import de.phtp.worldguessr.model.AppDB;
 import de.phtp.worldguessr.model.DAO;
 import de.phtp.worldguessr.model.Place;
 import de.phtp.worldguessr.model.Scores;
+import de.phtp.worldguessr.view.fragment.MapFragment;
 
 public class GameControl implements IGameControl{
 
@@ -74,13 +75,13 @@ public class GameControl implements IGameControl{
         }
     }
 
-    public String finalizeGame(MapView map,IMapControl mapControl) {
+    public String finalizeGame(MapView map, MapFragment fragment) {
         Place realPace = dao.getPlace(currentImageId);
         GeoPoint realGeoPoint = new GeoPoint(realPace.latitude, realPace.longitude);
-        mapControl.setMarker(realGeoPoint, true);
+        fragment.setMarker(realGeoPoint, true);
         GeoPoint p = ((Marker)map.getOverlays().get(1)).getPosition();
 
-        mapControl.drawLine(p, realGeoPoint);
+        fragment.drawLine(p, realGeoPoint);
 
         double distance = calculateDistance(p.getLatitude(), p.getLongitude(), realPace.latitude, realPace.longitude);
         distance = round(distance);
