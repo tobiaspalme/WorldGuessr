@@ -85,11 +85,7 @@ public class GameControl implements IGameControl{
         double distance = calculateDistance(p.getLatitude(), p.getLongitude(), realPace.latitude, realPace.longitude);
         distance = round(distance);
 
-        LocalDateTime dateTime = LocalDateTime.now();
-        Scores score = new Scores();
-        score.dateTime = buildDateTime(dateTime);
-        score.score = distance;
-        dao.insertScore(score);
+        createAndInsertScore(distance);
 
         return buildSnackbarString(distance);
     }
@@ -98,6 +94,14 @@ public class GameControl implements IGameControl{
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+
+    private void createAndInsertScore(double distance) {
+        LocalDateTime dateTime = LocalDateTime.now();
+        Scores score = new Scores();
+        score.dateTime = buildDateTime(dateTime);
+        score.score = distance;
+        dao.insertScore(score);
     }
 
     private String buildSnackbarString(double distance) {
