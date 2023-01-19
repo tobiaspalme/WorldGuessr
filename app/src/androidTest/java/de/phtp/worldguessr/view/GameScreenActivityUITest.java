@@ -68,4 +68,11 @@ public class GameScreenActivityUITest {
         onView(withId(R.id.map)).check(matches(isDisplayed()));
     }
 
+    @Test
+    public void testFloatingActionButtonIsClickable(){
+        onView(withId(R.id.navigation_map)).perform(click());
+        onView(withId(R.id.map)).perform(click());
+        onView(withId(R.id.fragment_map_fab)).check(matches(isClickable()));
+    }
+
 }
