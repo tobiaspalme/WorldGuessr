@@ -7,7 +7,15 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.endsWith;
 
 import androidx.test.core.app.ActivityScenario;
 
@@ -66,6 +74,13 @@ public class GameScreenActivityUITest {
     public void testMapIsDisplayed(){
         onView(withId(R.id.navigation_map)).perform(click());
         onView(withId(R.id.map)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testFloatingActionButtonIsDisplayed(){
+        onView(withId(R.id.navigation_map)).perform(click());
+        onView(withId(R.id.map)).perform(click());
+        onView(withId(R.id.fragment_map_fab)).check(matches(isDisplayed()));
     }
 
     @Test
