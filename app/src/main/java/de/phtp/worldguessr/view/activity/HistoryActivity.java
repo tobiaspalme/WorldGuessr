@@ -10,34 +10,39 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import de.phtp.worldguessr.R;
-import de.phtp.worldguessr.control.HistoryControl;
-import de.phtp.worldguessr.control.IHistoryControl;
+import de.phtp.worldguessr.model.AppDB;
+import de.phtp.worldguessr.model.DAO;
+import de.phtp.worldguessr.model.Score;
 
 public class HistoryActivity extends AppCompatActivity {
-
-    private IHistoryControl historyControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_game_history_screen);
         super.onCreate(savedInstanceState);
 
-        historyControl = new HistoryControl(getApplicationContext());
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         AsyncTask.execute(() -> {
+            DAO dao = AppDB.getInstance(this).dao();
+            List<Score> scores = dao.getAllScores();
+            List<String> entries = scores.stream().map(Score::toString).collect(Collectors.toList());
+
             ListAdapter myListAdapter =
-                    new ArrayAdapter<String>(
+                    new ArrayAdapter<>(
                             this, // Die aktuelle Umgebung (diese Activity)
                             R.layout.my_list, // Die ID des Zeilenlayouts (der XML-Layout Datei)
                             R.id.my_list_text_view,   // Die ID eines TextView-Elements im Zeilenlayout
-                            historyControl.getScoreList());  // Beispieldaten in einer ArrayList
+                            entries);  // Beispieldaten in einer ArrayList
 
-            ListView myListView = (ListView) findViewById(R.id.list_view);
+            ListView myListView = findViewById(R.id.list_view);
             myListView.setAdapter(myListAdapter);
         });
     }
