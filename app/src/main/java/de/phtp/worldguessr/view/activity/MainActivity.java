@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 Intent myIntent = new Intent(MainActivity.this, GameScreenActivity.class);
                 startActivity(myIntent);
                 Log.d("StartClick","button pressed");
-                GameControl.createInstance(db);
                 break;
             case R.id.activity_main_history_button:
                 Intent myIntent2 = new Intent(MainActivity.this, HistoryActivity.class);
