@@ -27,7 +27,9 @@ import org.osmdroid.views.overlay.Polyline;
 
 import de.phtp.worldguessr.R;
 import de.phtp.worldguessr.control.GameControl;
+import de.phtp.worldguessr.control.IGameControl;
 import de.phtp.worldguessr.databinding.FragmentMapBinding;
+import de.phtp.worldguessr.model.Place;
 import de.phtp.worldguessr.view.activity.GameScreenActivity;
 
 public class MapFragment extends Fragment implements View.OnClickListener {
@@ -37,11 +39,13 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     private MapView map = null;
 
-    private GameScreenActivity activity;
+    private GameScreenActivity gameScreenActivity;
 
-    private FloatingActionButton floatingActionButton;
+    private IGameControl gameControl;
 
     private boolean gameFinished = false;
+
+    private FloatingActionButton floatingActionButton;
 
     @Nullable
     @Override
@@ -54,7 +58,9 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
         map = binding.map;
 
-        activity = (GameScreenActivity)getActivity();
+        gameScreenActivity = (GameScreenActivity) getActivity();
+
+        gameControl = new GameControl();
 
         mapSetUp();
 
@@ -73,8 +79,8 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
         IMapController mapController = map.getController();
 
-        mapController.setZoom(activity.getCurrZoomLevel());
-        mapController.setCenter(activity.getCurrMapCenter());
+        mapController.setZoom(gameScreenActivity.getCurrZoomLevel());
+        mapController.setCenter(gameScreenActivity.getCurrMapCenter());
 
         map.setHorizontalMapRepetitionEnabled(false);
         map.setVerticalMapRepetitionEnabled(false);
@@ -114,30 +120,41 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.fragment_map_fab:
-                if (gameFinished) {
-                    GameControl.deleteInstance();
-                    requireActivity().finish();
-                } else {
-                    AsyncTask.execute(() -> {
-                        String text = GameControl.getInstance().finalizeGame(map,this);
-                        Snackbar snackbar = Snackbar
-                                .make(binding.fragmentMapFab, text, Snackbar.LENGTH_INDEFINITE);
-                        snackbar.show();});
-                    map.invalidate();
-                    floatingActionButton.setImageResource(R.drawable.ic_baseline_home_24);
-                    //lock map
-                    gameFinished = true;
-                }
-                break;
+        if (view.getId() == R.id.fragment_map_fab) {
+            if (gameFinished) {
+                requireActivity().finish();
+            } else {
+                AsyncTask.execute(() -> {
+                    //Set final marker
+                    Place realPlace = gameScreenActivity.getDao().getPlace(gameScreenActivity.getCurrentImageId());
+                    GeoPoint realGeoPoint = new GeoPoint(realPlace.latitude, realPlace.longitude);
+                    setMarker(realGeoPoint, true);
+
+                    //draw line
+                    GeoPoint p = ((Marker) map.getOverlays().get(1)).getPosition();
+                    drawLine(p, realGeoPoint);
+
+                    double distance = gameControl.calculateDistance(realGeoPoint.getLatitude(), realGeoPoint.getLongitude(), p.getLatitude(), p.getLongitude());
+                    distance = gameControl.round(distance);
+                    gameControl.insertScoreIntoDB(distance, gameScreenActivity.getDao());
+
+                    //Snackbar
+                    Snackbar distanceSnackbar = Snackbar.make(binding.fragmentMapFab, gameControl.buildSnackbarString(distance), Snackbar.LENGTH_INDEFINITE);
+                    distanceSnackbar.show();
+                });
+
+                map.invalidate();
+                floatingActionButton.setImageResource(R.drawable.ic_baseline_home_24);
+                //lock map
+                gameFinished = true;
+            }
         }
     }
 
     @Override
     public void onDestroyView() {
-        activity.setCurrMapCenter(map.getMapCenter());
-        activity.setCurrZoomLevel(map.getZoomLevelDouble());
+        gameScreenActivity.setCurrMapCenter(map.getMapCenter());
+        gameScreenActivity.setCurrZoomLevel(map.getZoomLevelDouble());
         super.onDestroyView();
     }
 
@@ -162,6 +179,4 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         line.getOutlinePaint().setStrokeWidth(3);
         map.getOverlays().add(line);
     }
-
-
 }
