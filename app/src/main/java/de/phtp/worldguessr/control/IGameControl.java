@@ -1,24 +1,38 @@
 package de.phtp.worldguessr.control;
 
-import org.osmdroid.views.MapView;
-
-import de.phtp.worldguessr.view.fragment.MapFragment;
+import de.phtp.worldguessr.model.DAO;
 
 public interface IGameControl {
 
     /**
-     * returns the picture id of the current picture
-     * @return the picture id of the current picture
+     * calculates the distance between two points
+     * @param lat1 latitude of point 1
+     * @param lon1 longitude of point 1
+     * @param lat2 latitude of point 2
+     * @param lon2 longitude of point 2
+     * @return distance between two points
      */
-    int getPictureId();
+    double calculateDistance(double lat1, double lon1, double lat2, double lon2);
 
     /**
-     * sets the final marker, draws the line between the points, calculate the distance and inserts it as a score into db
-     * @param map the current map
-     * @param fragment the current MapFragment
-     * @return snack-bar string
+     * rounds a double value with two decimal places
+     * @param value value to be rounded
+     * @return the rounded value
      */
-    String finalizeGame(MapView map, MapFragment fragment);
+    double round(double value);
 
+    /**
+     * inserts score (distance + timestamp)
+     * @param distance double distance
+     * @param dao dao
+     */
+    void insertScoreIntoDB(double distance, DAO dao);
+
+    /**
+     * builds the string containing the score
+     * @param distance double distance
+     * @return the string containing the score
+     */
+    String buildSnackbarString(double distance);
 
 }
